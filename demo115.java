@@ -1,0 +1,23 @@
+package demos;
+
+class ThreadSleepDemo extends Thread{
+    @Override
+    public void run(){
+        for (int i = 0; i < 10; i++){
+            try{Thread.sleep(2000);
+            } catch(InterruptedException e){
+                e.printStackTrace();
+            }
+            System.out.println(i);
+        }
+    }
+}
+
+public class demo115 {
+    public static void main(String[] args) {
+        ThreadSleepDemo t1 = new ThreadSleepDemo();
+        ThreadSleepDemo t2 = new ThreadSleepDemo();
+        t1.start();
+        t2.start();
+    }
+}
