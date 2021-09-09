@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import DAOFiles.EmployeeDAO;
 import DAOFiles.EmployeeDAOFactory;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
@@ -24,6 +25,10 @@ public class ViewAllTicketsServlet extends HttpServlet {
         try {
 			dao = EmployeeDAOFactory.getEmployeeDAO();
 			manager = dao.getManagerStatus(email);
+			int manager = dao.getManagerStatus(cookieE[0].getValue());
+			request.setAttribute("manager", manager);
+			RequestDispatcher reqD = request.getRequestDispatcher("/reimbursementf.jsp");
+			//reqD.forward(request, response);
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -64,8 +69,12 @@ public class ViewAllTicketsServlet extends HttpServlet {
 				+ "            border: none;\r\n"
 				+ "        }\r\n"
 				+ "\r\n"
+				+ "    btn-group {\r\n"
+				+ "        margin-bottom: 30 px;\r\n"
+				+ "    }\r\n"
+				+ "\r\n"
 				+ "    body {\r\n"
-				+ "        margin: 0;\r\n"
+				+ "        margin-bottom: 20 px;\r\n"
 				+ "        padding: 0;\r\n"
 				+ "        font-family: sans-serif;\r\n"
 				+ "        background: linear-gradient(to right, #81802b, #23538a)\r\n"
@@ -130,6 +139,16 @@ public class ViewAllTicketsServlet extends HttpServlet {
 				+ "\r\n"
 				+ "    <!-- main -->\r\n"
 				+ "    <div class=\"container\">\r\n"
+				+ "<div class=\"btn-group\">"
+				+ "  <button type=\"button\" class=\"btn btn-dark dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">"
+				+ "    Ticket Status"
+				+ "  </button>"
+				+ "  <div class=\"dropdown-menu\">"
+				+ "    <a class=\"dropdown-item\" href=\"#\">Pending</a>"
+				+ "    <a class=\"dropdown-item\" href=\"#\">Approved</a>"
+				+ "    <a class=\"dropdown-item\" href=\"#\">Rejected</a>"
+				+ "  </div>"
+				+ "</div>"
 				+ "        <table class=\"table text-light\">\r\n"
 				+ "            <thead>\r\n"
 				+ "                <tr>\r\n"
@@ -138,7 +157,7 @@ public class ViewAllTicketsServlet extends HttpServlet {
 				+ "                    <th>Type</th>\r\n"
 				+ "                    <th>Request Amount</th>\r\n"
 				+ "                    <th>Status</th>\r\n"
-				+ "                    <th>Date & Time</th>\r\n"
+				+ "                    <th>Date Subtmit</th>\r\n"
 				+ "                    <th>Description</th>\r\n"
 				+ "                    <th>Actions</th>\r\n"
 				+ "                </tr>\r\n"
@@ -149,7 +168,8 @@ public class ViewAllTicketsServlet extends HttpServlet {
 			dao = EmployeeDAOFactory.getEmployeeDAO();
 			String tickets = dao.viewAllTickets();
 			out.print(tickets);
-			
+				
+//			
 			
 //			int manager = dao.getManagerStatus(cookieE[0].getValue());
 //			request.setAttribute("manager", manager);

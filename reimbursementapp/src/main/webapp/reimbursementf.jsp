@@ -22,6 +22,7 @@
             padding: 40px;
             border-radius: 30px;
             background: #191919;
+            margin-bottom: 100px;
         }
 
         .container label {

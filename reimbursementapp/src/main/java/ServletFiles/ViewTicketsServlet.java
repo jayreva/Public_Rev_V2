@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
@@ -16,7 +17,7 @@ import DAOFiles.*;
 
 public class ViewTicketsServlet extends HttpServlet {
 	static int manager;
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		Cookie[] cookieE = request.getCookies();
@@ -26,6 +27,16 @@ public class ViewTicketsServlet extends HttpServlet {
         try {
 			dao = EmployeeDAOFactory.getEmployeeDAO();
 			manager = dao.getManagerStatus(email);
+			request.setAttribute("manager", manager);
+			  
+		    // Creating a RequestDispatcher object to dispatch
+		    // the request the request to another resource
+		    //RequestDispatcher rd = request.getRequestDispatcher("/reimbursementf.jsp");
+		  
+		    // The request will be forwarded to the resource 
+		    // specified, here the resource is a JSP named,
+		    //rd.forward(request, response);
+		    
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -70,7 +81,7 @@ public class ViewTicketsServlet extends HttpServlet {
 				+ "        }\r\n"
 				+ "\r\n"
 				+ "    body {\r\n"
-				+ "        margin: 0;\r\n"
+				+ "        margin-bottom: 20 px;\r\n"
 				+ "        padding: 0;\r\n"
 				+ "        font-family: sans-serif;\r\n"
 				+ "        background: linear-gradient(to right, #81802b, #23538a)\r\n"
@@ -115,11 +126,7 @@ public class ViewTicketsServlet extends HttpServlet {
                 + " 							<input type=\"submit\" class=\"dropdown-item text-warning bg-dark\" name=\"\" value=\"All Tickets\">"
                 + "								</form>");
 										}
-                								out.println("<form action=\"ViewTicketsServlet\" method=\"POST\">\r\n"
-				+ "                            <input type=\"submit\" class=\"dropdown-item text-warning bg-dark\" name=\"\" value=\"All Tickets\">\r\n"
-				+ "                        </form>        \r\n"
-				
-				+ "                </li>\r\n"
+                								out.println("</li>\r\n"
 				+ "\r\n"
 				+ "                <li class=\"nav-item\">\r\n"
 				+ "                    <a class=\"nav-link text-warning\" href=\"reimbursementf.jsp\">Form</a>   \r\n"
@@ -149,7 +156,7 @@ public class ViewTicketsServlet extends HttpServlet {
 				+ "                    <th>Type</th>\r\n"
 				+ "                    <th>Request Amount</th>\r\n"
 				+ "                    <th>Status</th>\r\n"
-				+ "                    <th>Date & Time</th>\r\n"
+				+ "                    <th>Date Submit</th>\r\n"
 				+ "                    <th>Description</th>\r\n"
 				+ "                </tr>\r\n"
 				+ "            </thead>\r\n"
@@ -190,5 +197,12 @@ public class ViewTicketsServlet extends HttpServlet {
 				+ "</body>\r\n"
 				+ "</html>");
 	}
+	@Override
+    protected void doPost(HttpServletRequest request,
+                        HttpServletResponse response)
+        throws ServletException, IOException
+    {
+        processRequest(request, response);
+    }
 }
 

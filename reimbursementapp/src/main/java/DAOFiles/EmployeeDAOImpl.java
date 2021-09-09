@@ -92,7 +92,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
            		+ "                    <td> $"+ amount +"</td>\r\n"
            		+ "                    <td>"+ status + "</td>\r\n"
            		+ "                    <td>"+ date + "</td>\r\n"
-           		+ "                    <td style=\"white-space: nowrap; text-overflow:ellipsis; overflow: hidden; max-width:1px;\">"+ description +" </td>\r\n"
+           		+ "                    <td class=\"absorbing-column\">"+ description +" </td>\r\n"
            		+ "                    \r\n"
            		+ "                </tr>";
        }
@@ -124,7 +124,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             		+ "                    <td> $"+ amount +"</td>\r\n"
             		+ "                    <td>"+ status + "</td>\r\n"
             		+ "                    <td>"+ date + "</td>\r\n"
-            		+ "                    <td style=\"white-space: nowrap; text-overflow:ellipsis; overflow: hidden; max-width:1px;\">"+ description +" </td>\r\n"
+            		+ "                    <td class=\"absorbing-column\">"+ description +" </td>\r\n"
             		+ "                    <td><a href='' id='approve'>Approve</a>/<a href='' id='reject'>Reject</a></td>\r\n"
 
             		+ "                    \r\n"
